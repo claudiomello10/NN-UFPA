@@ -1,0 +1,53 @@
+Método backpropagation(X, y, learning_rate, epochs, early_stopping, patience, verbose, verbose_step, validation_split):
+    Inicialize as variáveis:
+        y_train, X_val, y_val, patience_count, early_stopping_prev_loss, epoch, training_losses, validation_losses, best_weights
+
+    Enquanto verdadeiro:
+        Incrementar epoch
+        Realizar propagação para frente:
+            Calcular hidden_layer_input como o produto de X_train e hidden_weights
+            Calcular hidden_layer_output aplicando a função de ativação a hidden_layer_input
+            Calcular output_layer_input como o produto de hidden_layer_output e output_weights
+            Calcular output aplicando a função de ativação a output_layer_input
+
+        Realizar retropropagação:
+            Calcular output_error como a diferença entre y_train e output
+            Adicionar a média do quadrado de output_error a training_losses
+            Calcular output_delta como o produto de output_error e a derivada da função de ativação aplicada a output
+            Calcular hidden_error como o produto de output_delta e a transposta de output_weights
+            Calcular hidden_delta como o produto de hidden_error e a derivada da função de ativação aplicada a hidden_layer_output
+
+        Atualizar os pesos:
+            Incrementar output_weights pelo produto do transposto de hidden_layer_output e output_delta, multiplicado pela taxa de aprendizado
+            Incrementar hidden_weights pelo produto do transposto de X_train e hidden_delta, multiplicado pela taxa de aprendizado
+
+        Calcular validation_loss como a média do quadrado da diferença entre y_val e a previsão de X_val
+        Adicionar validation_loss a validation_losses
+
+        Se early_stopping for verdadeiro:
+            Se validation_loss for menor que early_stopping_prev_loss:
+                Atualizar best_weights para os pesos atuais
+                Resetar patience_count
+                Atualizar early_stopping_prev_loss para validation_loss
+            Senão:
+                Incrementar patience_count
+                Se patience_count for igual a patience:
+                    Se verbose for verdadeiro:
+                        Imprimir "Early stopping at epoch {epoch}"
+                    Parar o loop
+
+        Senão:
+            Se validation_loss for menor que early_stopping_prev_loss:
+                Atualizar early_stopping_prev_loss para validation_loss
+                Atualizar best_weights para os pesos atuais
+
+        Se verbose for verdadeiro e epoch for múltiplo de verbose_step:
+            Calcular loss como a média do valor absoluto de output_error
+            Imprimir "Epoch: {epoch}, Loss: {loss}, Validation Loss: {validation_loss}"
+
+        Se epochs não for 0 e epoch for igual a epochs:
+            Imprimir "Training completed at epoch {epoch}"
+            Parar o loop
+
+    Atualizar hidden_weights e output_weights para best_weights
+    Retornar training_losses, validation_losses, best_weights, early_stopping_prev_loss

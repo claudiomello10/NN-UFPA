@@ -21,16 +21,19 @@ X_test = X[indices[-num_validation_samples:]]
 y_test = y[indices[-num_validation_samples:]]
 
 # Create a MLP model with 5 input units, 4 hidden units, and 1 output unit
-
 model = MLP_Classifier(
-    input_units=5, hidden_units=40, output_units=1, normalize=True, activation="sigmoid"
+    input_units=X_train.shape[1],
+    hidden_units=40,
+    output_units=1,
+    normalize=True,
+    activation="sigmoid",
 )
 (training_losses, validation_losses, best_weights) = model.backpropagation(
     X_train,
     y_train,
     learning_rate=0.001,
     epochs=0,
-    verbose=True,
+    verbose=False,
     verbose_step=1000,
     early_stopping=True,
     patience=100,

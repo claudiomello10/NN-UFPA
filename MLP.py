@@ -57,6 +57,9 @@ class MLP_Classifier:
             tuple: A tuple containing the hidden weights and output weights.
         """
         return self.hidden_weights, self.output_weights
+    
+    def set_weights(self, weights):
+        self.hidden_weights, self.output_weights = weights
 
     def _sigmoid(self, x):
         """
@@ -160,7 +163,7 @@ class MLP_Classifier:
             verbose_step (int): Step size for printing the loss.
 
         Returns:
-            tuple: A tuple containing the training losses, validation losses, and the best weights.
+            tuple: A tuple containing the training losses, validation losses, best weights, and the best validation loss.
         """
         if self.normalize:
             X = (X - X.mean(axis=0)) / X.std(axis=0)
@@ -170,7 +173,6 @@ class MLP_Classifier:
         indices = np.random.permutation(num_samples)
         X_train = X[indices[:-num_validation_samples]]
         y_train = y[indices[:-num_validation_samples]]
-        print(f"X_train: {X_train}\n\n Y_train: {y_train}")
         X_val = X[indices[-num_validation_samples:]]
         y_val = y[indices[-num_validation_samples:]]
         patience_count = 0
@@ -214,7 +216,8 @@ class MLP_Classifier:
                 else:
                     patience_count += 1
                     if patience_count == patience:
-                        print(f"Early stopping at epoch {epoch}")
+                        if verbose:
+                            print(f"Early stopping at epoch {epoch}")
                         break
             else:
                 if validation_loss < early_stopping_prev_loss:
@@ -232,4 +235,9 @@ class MLP_Classifier:
                 break
 
         self.hidden_weights, self.output_weights = best_weights
-        return training_losses, validation_losses, best_weights
+        return (
+            training_losses,
+            validation_losses,
+            best_weights,
+            early_stopping_prev_loss,
+        )
