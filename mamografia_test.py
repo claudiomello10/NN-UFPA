@@ -28,16 +28,18 @@ model = MLP_Classifier(
     normalize=True,
     activation="sigmoid",
 )
-(training_losses, validation_losses, best_weights) = model.backpropagation(
-    X_train,
-    y_train,
-    learning_rate=0.001,
-    epochs=0,
-    verbose=False,
-    verbose_step=1000,
-    early_stopping=True,
-    patience=100,
-    validation_split=0.2,
+(training_losses, validation_losses, best_weights, early_stopping_prev_loss) = (
+    model.backpropagation(
+        X_train,
+        y_train,
+        learning_rate=0.001,
+        epochs=0,
+        verbose=False,
+        verbose_step=1000,
+        early_stopping=True,
+        patience=100,
+        validation_split=0.2,
+    )
 )
 
 # Predict the output for the test set
