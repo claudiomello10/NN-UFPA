@@ -7,10 +7,10 @@ Este projeto utiliza uma rede neural simples, especificamente um Perceptron Mult
 O projeto consiste nos seguintes arquivos:
 
 * [`mamografia_multiple_tests.py`](/mamografia_multiple_tests.py): Este script realiza vários testes com diferentes configurações de unidades ocultas e funções de ativação para encontrar o melhor modelo.
-* [`mamografia_test.py`](): Este script cria um modelo MLP com 5 unidades de entrada, 40 unidades ocultas e 1 unidade de saída. Ele treina o modelo, faz previsões no conjunto de testes e calcula a acurácia do modelo.
-* [`MLP.py`](): Este arquivo contém a implementação da classe [`MLP_Classifier`](), que representa o modelo de rede neural.
-* [`dadosmamografia.xlsx`](): Este é o conjunto de dados usado para treinar e testar o modelo.
-* [`pseudocode.txt`](): Este arquivo contém pseudocódigo para o projeto.
+* [`mamografia_test.py`](/mamografia_test.py): Este script cria um modelo MLP com 5 unidades de entrada, 40 unidades ocultas e 1 unidade de saída. Ele treina o modelo, faz previsões no conjunto de testes e calcula a acurácia do modelo.
+* [`MLP.py`](/MLP.py): Este arquivo contém a implementação da classe [`MLP_Classifier`](/MLP.py), que representa o modelo de rede neural.
+* [`dadosmamografia.xlsx`](/dadosmamografia.xlsx): Este é o conjunto de dados usado para treinar e testar o modelo.
+* [`pseudocode.txt`](/pseudocode.txt): Este arquivo contém pseudocódigo para o projeto.
 
 ## Como usar
 
@@ -26,6 +26,6 @@ ou
 
 ## Detalhes da Implementação
 
-O modelo MLP é implementado na classe [`MLP_Classifier`]() no arquivo [`MLP.py`](). Esta classe tem métodos para inicializar o modelo, obter os pesos, realizar forward e backpropagation.
+O modelo MLP é implementado na classe [`MLP_Classifier`](/MLP.py) no arquivo [`MLP.py`](/MLP.py). Esta classe tem métodos para inicializar o modelo, obter os pesos, realizar forward e backpropagation.
 
-Os scripts [`mamografia_test.py`]() e [`mamografia_multiple_tests.py`]() usam a classe [`MLP_Classifier`]() para criar um modelo, treiná-lo com os dados de [`dadosmamografia.xlsx`](), fazer previsões e calcular a acurácia do modelo.
+Os scripts [`mamografia_test.py`](/mamografia_test.py) e [`mamografia_multiple_tests.py`](/mamografia_multiple_tests.py) usam a classe [`MLP_Classifier`](/MLP.py) para criar um modelo, treiná-lo com os dados de [`dadosmamografia.xlsx`](/dadosmamografia.xlsx), fazer previsões e calcular a acurácia do modelo.
