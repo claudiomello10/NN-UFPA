@@ -14,7 +14,6 @@ class MLP_Classifier:
         output_units (int): Number of output units.
         hidden_weights (ndarray): Weights of the connections between the input and hidden layers.
         output_weights (ndarray): Weights of the connections between the hidden and output layers.
-        normalize (bool): Whether to normalize the input data.
         activation (str): Activation function to use. Options: "sigmoid", "relu", "tanh".
         random_seed (int): Random seed for reproducibility on the weights initialization.
 
@@ -34,7 +33,6 @@ class MLP_Classifier:
         hidden_units=4,
         output_units=1,
         weights=None,
-        normalize=False,
         activation="sigmoid",
         random_seed=None,
     ):
@@ -55,15 +53,12 @@ class MLP_Classifier:
             raise ValueError("Number of units must be an integer")
         if input_units <= 0 or hidden_units <= 0 or output_units <= 0:
             raise ValueError("Invalid number of units")
-        if not isinstance(normalize, bool):
-            raise ValueError("Normalize value must be a boolean")
         if not isinstance(activation, str):
             raise ValueError("Activation function must be a string")
 
         self.input_units = input_units
         self.hidden_units = hidden_units
         self.output_units = output_units
-        self.normalize = normalize
         self.activation = activation
 
         if weights:
@@ -175,8 +170,6 @@ class MLP_Classifier:
         if X.shape[1] != self.input_units:
             raise ValueError("Input data shape is not compatible with the model")
         try:
-            if self.normalize:
-                X = (X - X.mean(axis=0)) / X.std(axis=0)
             hidden_layer_input = np.dot(X, self.hidden_weights)
             hidden_layer_output = self.activation_function(hidden_layer_input)
 
@@ -238,8 +231,6 @@ class MLP_Classifier:
 
         try:
 
-            if self.normalize:
-                X = (X - X.mean(axis=0)) / X.std(axis=0)
             # Randomly split the data into training and validation sets
             num_samples = X.shape[0]
             num_validation_samples = int(num_samples * validation_split)

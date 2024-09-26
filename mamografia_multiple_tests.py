@@ -8,6 +8,9 @@ data = pd.read_excel("dadosmamografia.xlsx").values
 X = data[:, :-1]
 y = data[:, -1].reshape(-1, 1)
 
+# Normalize the data between 0 and 1
+X = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
+
 
 TEST_SPLIT = 0.2
 
